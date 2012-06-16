@@ -1,0 +1,13 @@
+/*--------------------- Overriding -----------------*/
+.ui-widget{font-family: Tahoma,Verdana,Arial;font-size:14px}
+
+.ui-widget{font-family: Tahoma,Verdana,Arial;}
+.ui-dialog .ui-dialog-content{font-family: Tahoma;}
+.ui-widget .ui-widget{font-family: Tahoma;font-size:12px}
+
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button{font-family: Tahoma;font-size:12px}
+.ui-menu .ui-menu-item a{font-size:11px;font-weight: none;}
+.ui-button-icon-only .ui-button-text, .ui-button-icons-only .ui-button-text{
+	text-indent:0px;
+}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {border:0px;background:transparent; font-weight: normal/*{fwDefault}*/; color: #212121/*{fcActive}*/; }

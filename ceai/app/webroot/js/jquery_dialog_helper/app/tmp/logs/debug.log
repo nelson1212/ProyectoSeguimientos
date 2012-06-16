@@ -1,0 +1,8 @@
+2010-11-18 06:46:47 Debug: Notice (1024): Please change the value of 'Security.salt' in app/config/core.php to a salt value specific to your application in [D:\program files\xampp\htdocs\cakephp\cake\libs\debugger.php, line 684]
+2010-11-18 06:46:47 Debug: Notice (1024): Please change the value of 'Security.cipherSeed' in app/config/core.php to a numeric (digits only) seed value specific to your application in [D:\program files\xampp\htdocs\cakephp\cake\libs\debugger.php, line 688]
+2010-11-18 06:50:48 Debug: Notice (8): Undefined property: View::$Radio in [D:\program files\xampp\htdocs\cakephp\app\views\users\index.ctp, line 3]
+2010-11-18 07:03:56 Debug: Notice (8): Undefined property: View::$Jdialog in [D:\program files\xampp\htdocs\cakephp\app\views\users\index.ctp, line 2]
+2010-11-18 07:05:04 Debug: Notice (8): Undefined property: View::$Jdialog in [D:\program files\xampp\htdocs\cakephp\app\views\users\index.ctp, line 2]
+2010-11-18 07:05:44 Debug: Notice (8): Undefined variable: id in [D:\program files\xampp\htdocs\cakephp\app\views\users\index.ctp, line 6]
+2010-11-18 07:05:44 Debug: Notice (8): Undefined variable: songCombobox in [D:\program files\xampp\htdocs\cakephp\app\views\users\index.ctp, line 11]
+2010-11-18 07:05:44 Debug: Notice (8): Undefined variable: id in [D:\program files\xampp\htdocs\cakephp\app\views\users\index.ctp, line 12]

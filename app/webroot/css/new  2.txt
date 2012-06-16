@@ -1,0 +1,80 @@
+/*	
+	form {  /* set width in form, not fieldset (still takes up more room w/ fieldset width */
+  font:100% Tahoma,verdana,arial,sans-serif;
+  margin: 0;
+  padding: 0;
+ font-family: Tahoma,verdana,arial,sans-serif;
+  width: 948px; 
+  
+}
+
+form fieldset {
+  / * clear: both; note that this clear causes inputs to break to left in ie5.x mac, commented out */
+  border-color: #000;
+  border-width: 1px;
+  border-style: solid;
+  padding: 10px;        /* padding in fieldset support spotty in IE */
+  margin: 0;
+   -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color:#F2F0F0 ;
+    
+}
+
+form fieldset legend {
+    color: green;
+	font-size:1.1em; /* bump up legend font size, not too large or it'll overwrite border on left */
+                       /* be careful with padding, it'll shift the nice offset on top of border  */
+
+}
+
+form label { 
+	display: block;  /* block float the labels to left column, set a width */
+	float: left; 
+	width: 250px; 
+	padding: 0; 
+	margin: 10px 0 0; /* set top margin same as form input - textarea etc. elements */
+	text-align: right; 
+}
+
+
+
+form input, form textarea, form select {
+	/* display: inline; inline display must not be set or will hide submit buttons in IE 5x mac */
+	width:auto;      /* set width of form elements to auto-size, otherwise watch for wrap on resize */
+	margin:10px 0 0 10px; /* set margin on left of form elements rather than right of
+                              label aligns textarea better in IE */
+font-family: Tahoma,verdana,arial,sans-serif;
+font:98% Tahoma,verdana,arial,sans-serif;
+
+}
+
+form input#reset {
+	margin-left:0px; /* set margin-left back to zero on reset button (set above) */
+}
+
+textarea { overflow: auto; }
+
+form small {
+	display: block;
+	margin: 0 0 5px 160px; /* instructions/comments left margin set to align w/ right column inputs */
+	padding: 1px 3px;
+	font-size: 88%;
+}
+
+form .required{font-weight:bold;} /* uses class instead of div, more efficient */
+
+form br {
+	clear:left; /* setting clear on inputs didn't work consistently, so brs added for degrade */
+}
+
+form  input[type='text']{
+    width: 28%;
+    
+}
+
+form select, input[type='text']{
+    width: 45%;
+    
+}
+*/
