@@ -4,6 +4,7 @@ $(document).ready(function(){
 	
     //Variables globales
     var idEspe = 0;
+
     //Agregar calendario
    // $('#calendario').datetimepicker();
     

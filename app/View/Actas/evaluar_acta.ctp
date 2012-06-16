@@ -51,8 +51,8 @@
 				echo $aprendiz["Aprendice"]["documento"];
 			?></td>
 			<td><?php echo $nombres = $aprendiz["Aprendice"]["nombres"] . " " . $aprendiz["Aprendice"]["apellidos"]; ?></td>
-			<td id="<?php echo $i; ?>"><?php echo $this -> Form -> input('nota', array( "label" => false, "type" => "text", "id" => "txtNota".$i, "class"=>"txtNota".$i, "name"=>$i, "maxlength"=>3, "style" => "width:100%;")); ?></td>
-			<td><?php echo $this -> Form -> input('evaluacion'.$i, array("label" => false, "type" => "text", "" => $i, 'readonly' => 'readonly', 'size' => 13)); ?></td>
+			<td id="<?php echo $i; ?>"><?php echo $this -> Form -> input('nota', array( "label" => false, "type" => "text", "id" => "txtNota", "class"=>"txtNota".$i, "name"=>$i, "maxlength"=>3, "style" => "width:100%;")); ?></td>
+			<td><?php echo $this -> Form -> input('evaluacion'.$i, array("label" => false, "type" => "text", "id"=>"txtEval".$i,'readonly' => 'readonly', 'size' => 13)); ?></td>
 			
 			<td >
 			    <div style="width: 20px; height: 20px; margin:2px; background-color: ;">

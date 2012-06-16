@@ -9,7 +9,11 @@ $(document).ready(function() {
 	var idAprendiz = 0;
 	var idInstructor = 0;
 	var idActa = 0;
+	var siteRoot = "/ProyectoSeguimientos/";
+	var pathname = window.location.pathname;
 
+   // alert(pathname);
+	
 	function probar(id, nombres) {
 		var idCompetencia = $("#txtComId").val();
 		var documento = $("#documento").html();
@@ -19,8 +23,8 @@ $(document).ready(function() {
 		var idAprendiz = $("#txtIdAprendiz").val();
 		var idActa = $("#txtIdActa").val();
 		var concepto = $("#txtComentarios").val();
-
-		$.post("/ceai/conceptualaprendices/cargarConcepto", {
+		
+		$.post(siteRoot+"conceptualaprendices/cargarConcepto", {
 			aprendiz : idAprendiz,
 			acta : idActa,
 			concep : concepto
@@ -172,7 +176,7 @@ $(document).ready(function() {
 
 		function obtenerGrupos() {
 			idEspe = $("#idEspecialidad").val();
-			$.post("../actas/obtenerGrupos", {
+			$.post($siteRoot+"actas/obtenerGrupos", {
 				idEsp : idEspe
 			}, resultado, "json");
 			function resultado(data) {
@@ -204,7 +208,7 @@ $(document).ready(function() {
 	$('#instructores').click(function(e) {
 		idEspe = $("#idEspecialidad").val();
 		function obtenerInstructores() {
-			$.post("../actas/obtenerInstructores", {
+			$.post(siteRoot+"actas/obtenerInstructores", {
 				idEsp : idEspe
 			}, resultado, "json");
 			function resultado(data) {
@@ -259,7 +263,6 @@ $(document).ready(function() {
 	});
 
 	// EVALUAR GRUPO ***************************************************************************************************
-	//Seleccionar competencia y resultado
 
 	$("#lpaCompetencias").click(function() {
 		$('#modal_comp_resul').modal({
@@ -268,7 +271,7 @@ $(document).ready(function() {
 		return false;
 	});
 
-	//Seleccionar competencia
+	//**************************************************** SELECCIONAR COMPETENCIAS Y OBTENER RESULTADOS DE APRENDIZAJE **************************************/
 	$("#cboCompetencias").change(function() {
 		//Id competencia
 		idCompetencia = $("#cboCompetencias").val();
@@ -276,7 +279,7 @@ $(document).ready(function() {
 
 		//Funcion obtener resultados de aprendizajes
 		function obtenerResultados() {
-			$.post("/ceai/actas/obtenerResultados", {
+			$.post(siteRoot+"actas/obtenerResultados", {
 				idComp : idCompetencia
 			}, resultado, "json");
 			function resultado(data) {
@@ -291,11 +294,9 @@ $(document).ready(function() {
 
 		}
 
-		//llamado de la funci�n
-		obtenerResultados();
 	});
 
-	//doble clic en resultado de aprendizaje
+    //**************************************************** DOBLE CLIC EN RESULTADOS DE APRENDIZAJE *************************************************************/
 	$("#cboResultados").dblclick(function() {
 
 		idResultado = $("#cboResultados option:selected").val();
@@ -317,7 +318,7 @@ $(document).ready(function() {
 		}
 
 
-		$.post("/ceai/actas/obtenerIntructorResultadoAprendizaje", {
+		$.post(siteRoot+"actas/obtenerIntructorResultadoAprendizaje", {
 			idRes : idResultado
 		}, resultado, "json");
 	});
@@ -332,7 +333,7 @@ $(document).ready(function() {
 		var url = $(this).attr("href");
 		var id = explode("/", url);
 		id = id[4];
-		$.post("actas/detallesActa", {
+		$.post(siteRoot+"actas/detallesActa", {
 			idActa : id
 		}, resultado, "json");
 		function resultado(data) {
@@ -366,7 +367,7 @@ $(document).ready(function() {
 
 	//Agregar nuevas frases
 	$("#modal_comentarios #btnAgregar").click(function() {
-		$.post("/ceai/frases/agregarFrase", {
+		$.post(siteRoot+"ceai/frases/agregarFrase", {
 			frase : $("#txtNuevaFrase").val()
 		}, resultado, "json");
 		function resultado(data) {
@@ -405,7 +406,7 @@ $(document).ready(function() {
 			$("#txtComentarios").focus();
 		}
 
-		$.post("/ceai/conceptualaprendices/agregarConcepto", {
+		$.post(siteRoot+"/conceptualaprendices/agregarConcepto", {
 			aprendiz : idAprendiz,
 			acta : idActa,
 			concep : concepto
@@ -422,35 +423,33 @@ $(document).ready(function() {
 
 	});
 
-	//Ingreso y validación de las calificaciones
+	//**************************************************** INGRESO Y VALIDACIÓN DE CALIFICACIONES *************************************************************/
 	$("#txtNota").live('keyup', function(event) {
 		
-		//Numero de la caja de texto donde se ingresa la nota
-		var eval = $(this).attr('name');
-		var txtNota = $("#txtNota" + eval);
-		inputControl(txtNota, 'float');
+		var txtNotaClass = $(this).attr("class");
+		var txtNota = $("."+txtNotaClass);
+		var numero = $(this).attr("name"); //Numero para identificar la evaluación
 
+		inputControl(txtNota, 'float');
+		var evaluacion = $("#txtEval"+numero);
+		
 		if ($(this).val() != "") {
 			if (txtNota.val() >= 3.5 && txtNota.val() <= 5) {
-				$("#evaluacion" + eval).val("Aprobado");
-				//nota = txtNota.val();
-				//valuacion = "Aprobado";
+				evaluacion.val("Aprobado");
 			} else if (txtNota.val() >= 0 && txtNota.val() < 3.5) {
-				$("#evaluacion" + eval).val("No Aprobado");
-				//nota = txtNota.val();
-				//evaluacion = "No Aprobado";
+				evaluacion.val("No Aprobado");
 			} else {
 				jAlert("La nota numerica debe ser mayor a 0 y menor a 5", "Notificación")
 				txtNota.val("")
 				txtNota.focus();
-				$("#evaluacion" + eval).val("");
+				evaluacion.val("");
 			}
 		}
 
 		if (txtNota.val() == "") {
-			$("#evaluacion" + eval).val("");
+			evaluacion.val("");
 		}
-
+              
 	});
 
 	//Pasar el mouse sobre la imagen guardar
@@ -473,7 +472,7 @@ $(document).ready(function() {
 		var idAprendiz = $(this).attr('name');
 		
 		var eval = $(this).attr('name'); //Numero de la evaluación
-		alert(eval);
+
 		//Numero de la caja de texto donde se ingresa la nota
 		var txtNota = $(".txtNota" + eval);
 		//inputControl(txtNota, 'float');
@@ -502,7 +501,7 @@ $(document).ready(function() {
 
 		}
 
-		$.post("/ceai/calificaciones/calificarAprendiz", {
+		$.post(siteRoot+"calificaciones/calificarAprendiz", {
 			acta_id : idActa,
 			aprendiz_id : idAprendiz,
 			resultado_id : idResultado,

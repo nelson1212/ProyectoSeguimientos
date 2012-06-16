@@ -5231,3 +5231,8 @@
 #8 D:\xampp\htdocs\ceai\lib\Cake\Routing\Dispatcher.php(86): Dispatcher->_invoke(Object(CalificacionesController), Object(CakeRequest), Object(CakeResponse))
 #9 D:\xampp\htdocs\ceai\app\webroot\index.php(96): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #10 {main}
+2012-06-16 19:41:21 Error: [MissingActionException] Action ActasController::actas() could not be found.
+#0 D:\xampp\htdocs\ProyectoSeguimientos\lib\Cake\Routing\Dispatcher.php(104): Controller->invokeAction(Object(CakeRequest))
+#1 D:\xampp\htdocs\ProyectoSeguimientos\lib\Cake\Routing\Dispatcher.php(86): Dispatcher->_invoke(Object(ActasController), Object(CakeRequest), Object(CakeResponse))
+#2 D:\xampp\htdocs\ProyectoSeguimientos\app\webroot\index.php(96): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
