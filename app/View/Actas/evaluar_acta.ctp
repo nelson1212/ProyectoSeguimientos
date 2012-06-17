@@ -3,6 +3,7 @@
 <div class="actas form">
 	<h2 id="titulo_menu">Evaluar grupo: <?php echo $infoActa[0]["Grupo"]["nombre"]; ?></h2>
     <input type="hidden" name="txtIdActa" id="txtIdActa" value=<?php echo $idActa; ?> />
+    <input type="hidden" name="txtIdGrupo" id="txtIdGrupo" value=<?php echo $infoActa[0]["Acta"]["grupo_id"]; ?> />
 	<table border="0" width="100%" id="formulario" cellpadding="0" cellspacing="0">
 		<tr>
 			<td style="width: 16%;"><b>Competencia</b></td>
@@ -51,17 +52,47 @@
 				echo $aprendiz["Aprendice"]["documento"];
 			?></td>
 			<td><?php echo $nombres = $aprendiz["Aprendice"]["nombres"] . " " . $aprendiz["Aprendice"]["apellidos"]; ?></td>
-			<td id="<?php echo $i; ?>"><?php echo $this -> Form -> input('nota', array( "label" => false, "type" => "text", "id" => "txtNota", "class"=>"txtNota".$i, "name"=>$i, "maxlength"=>3, "style" => "width:100%;")); ?></td>
-			<td><?php echo $this -> Form -> input('evaluacion'.$i, array("label" => false, "type" => "text", "id"=>"txtEval".$i,'readonly' => 'readonly', 'size' => 13)); ?></td>
+			<td id="<?php echo $i; ?>">
+				<?php echo $this -> Form -> input('nota', array( "label" => false, 
+																						"type" => "text", 
+																						"id" => "txtNota", 
+																						"class"=>"txtNota".$i, 
+																						"name"=>$i, 
+																						"maxlength"=>3, 
+																						"style" => "width:100%;")); ?>
+			</td>
+			<td>
+				<?php echo $this -> Form -> input('evaluacion', array("label" => false, 
+																		"type" => "text",
+																		"class"=>"txtEval".$i, 
+																		"id"=>"txtEval".$i,
+																		'readonly' => 'readonly', 
+																		'size' => 13)); ?>
+		   </td>
 			
 			<td >
-			    <div style="width: 20px; height: 20px; margin:2px; background-color: ;">
-			             <?php echo $this->Html->image('save2.gif', array("id"=>"saveEval", 
+				
+				<?php if($this->Session->read('save')==0) { ?>
+				    <div id="saveDiv".<?php echo $i; ?> style="width: 20px; height: 20px; margin:2px; background-color: ;">
+				             <?php echo $this->Html->image('save2.gif', array("id"=>"saveEval", 
+				                                                              'alt' => 'Buscar instructores', 
+				                                                              'width'=>18,
+				                                                              'heigth'=>18,
+				                                                              'class'=>$i, //Numero
+	                                                                          'name'=>$id)); //Id Aprendiz ?>
+				     </div>
+			     <?php } ?>
+			     
+			    
+			     <div style="width: 20px; height: 20px; margin:2px; background-color: ;">
+			             <?php echo $this->Html->image('edit.gif', array("id"=>"editEval", 
 			                                                              'alt' => 'Buscar instructores', 
 			                                                              'width'=>18,
 			                                                              'heigth'=>18,
-                                                                          'name'=>$id)); ?>
+			                                                              'class'=>$i, //Numero
+                                                                          'name'=>$id)); //Id Aprendiz ?>
 			     </div>
+			     
 			</td>
 			
 			<td class="actions"><a id="lnkComentarios" class="acciones" onclick="probar(<?php echo $id; ?>, <?php echo "'" . $nombres . "'"; ?>);">Comentarios</a><?php echo $this -> Html -> link(__('Insistencias'), array('action' => 'evaluarActa', 1), array('class' => "acciones")); ?>

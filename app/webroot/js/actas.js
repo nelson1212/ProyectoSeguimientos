@@ -12,8 +12,8 @@ $(document).ready(function() {
 	var siteRoot = "/ProyectoSeguimientos/";
 	var pathname = window.location.pathname;
 
-   // alert(pathname);
-	
+	// alert(pathname);
+
 	function probar(id, nombres) {
 		var idCompetencia = $("#txtComId").val();
 		var documento = $("#documento").html();
@@ -23,8 +23,8 @@ $(document).ready(function() {
 		var idAprendiz = $("#txtIdAprendiz").val();
 		var idActa = $("#txtIdActa").val();
 		var concepto = $("#txtComentarios").val();
-		
-		$.post(siteRoot+"conceptualaprendices/cargarConcepto", {
+
+		$.post(siteRoot + "conceptualaprendices/cargarConcepto", {
 			aprendiz : idAprendiz,
 			acta : idActa,
 			concep : concepto
@@ -176,7 +176,7 @@ $(document).ready(function() {
 
 		function obtenerGrupos() {
 			idEspe = $("#idEspecialidad").val();
-			$.post($siteRoot+"actas/obtenerGrupos", {
+			$.post($siteRoot + "actas/obtenerGrupos", {
 				idEsp : idEspe
 			}, resultado, "json");
 			function resultado(data) {
@@ -208,7 +208,7 @@ $(document).ready(function() {
 	$('#instructores').click(function(e) {
 		idEspe = $("#idEspecialidad").val();
 		function obtenerInstructores() {
-			$.post(siteRoot+"actas/obtenerInstructores", {
+			$.post(siteRoot + "actas/obtenerInstructores", {
 				idEsp : idEspe
 			}, resultado, "json");
 			function resultado(data) {
@@ -279,7 +279,7 @@ $(document).ready(function() {
 
 		//Funcion obtener resultados de aprendizajes
 		function obtenerResultados() {
-			$.post(siteRoot+"actas/obtenerResultados", {
+			$.post(siteRoot + "actas/obtenerResultados", {
 				idComp : idCompetencia
 			}, resultado, "json");
 			function resultado(data) {
@@ -296,7 +296,7 @@ $(document).ready(function() {
 
 	});
 
-    //**************************************************** DOBLE CLIC EN RESULTADOS DE APRENDIZAJE *************************************************************/
+	//**************************************************** DOBLE CLIC EN RESULTADOS DE APRENDIZAJE *************************************************************/
 	$("#cboResultados").dblclick(function() {
 
 		idResultado = $("#cboResultados option:selected").val();
@@ -318,9 +318,19 @@ $(document).ready(function() {
 		}
 
 
-		$.post(siteRoot+"actas/obtenerIntructorResultadoAprendizaje", {
+		$.post(siteRoot + "actas/obtenerIntructorResultadoAprendizaje", {
 			idRes : idResultado
 		}, resultado, "json");
+		
+		idActa = $('#txtIdActa').val();
+		idGrupo = $('#txtIdGrupo').val();
+		
+		$.post(siteRoot + "calificaciones/obtenerCalificaciones", {
+			id_acta : idActa, 
+			id_resultado: idResultado
+		}, resultado, "json");
+		
+		
 	});
 
 	//FIN Evaluar grupo ***************************************************************************************************
@@ -333,7 +343,7 @@ $(document).ready(function() {
 		var url = $(this).attr("href");
 		var id = explode("/", url);
 		id = id[4];
-		$.post(siteRoot+"actas/detallesActa", {
+		$.post(siteRoot + "actas/detallesActa", {
 			idActa : id
 		}, resultado, "json");
 		function resultado(data) {
@@ -367,7 +377,7 @@ $(document).ready(function() {
 
 	//Agregar nuevas frases
 	$("#modal_comentarios #btnAgregar").click(function() {
-		$.post(siteRoot+"ceai/frases/agregarFrase", {
+		$.post(siteRoot + "ceai/frases/agregarFrase", {
 			frase : $("#txtNuevaFrase").val()
 		}, resultado, "json");
 		function resultado(data) {
@@ -406,7 +416,7 @@ $(document).ready(function() {
 			$("#txtComentarios").focus();
 		}
 
-		$.post(siteRoot+"/conceptualaprendices/agregarConcepto", {
+		$.post(siteRoot + "/conceptualaprendices/agregarConcepto", {
 			aprendiz : idAprendiz,
 			acta : idActa,
 			concep : concepto
@@ -423,90 +433,90 @@ $(document).ready(function() {
 
 	});
 
+	
 	//**************************************************** INGRESO Y VALIDACIÓN DE CALIFICACIONES *************************************************************/
 	$("#txtNota").live('keyup', function(event) {
-		
-		var txtNotaClass = $(this).attr("class");
-		var txtNota = $("."+txtNotaClass);
-		var numero = $(this).attr("name"); //Numero para identificar la evaluación
+		var classNota = $(this).attr("class");
+		var txtNota = $("."+classNota);
+		//alert(classNota);
+		var numero =  $(this).attr("name");
+		var txtEvaluacion = $("#txtEval"+numero);
 
 		inputControl(txtNota, 'float');
-		var evaluacion = $("#txtEval"+numero);
-		
+
 		if ($(this).val() != "") {
 			if (txtNota.val() >= 3.5 && txtNota.val() <= 5) {
-				evaluacion.val("Aprobado");
+				txtEvaluacion.val("Aprobado");
 			} else if (txtNota.val() >= 0 && txtNota.val() < 3.5) {
-				evaluacion.val("No Aprobado");
+				txtEvaluacion.val("No Aprobado");
 			} else {
 				jAlert("La nota numerica debe ser mayor a 0 y menor a 5", "Notificación")
 				txtNota.val("")
 				txtNota.focus();
-				evaluacion.val("");
+				txtEvaluacion.val("");
 			}
 		}
 
 		if (txtNota.val() == "") {
-			evaluacion.val("");
+			txtEvaluacion.val("");
 		}
-              
+
 	});
 
-	//Pasar el mouse sobre la imagen guardar
+	//***************************************** PASAR EL MOUSE SOBRE LA IMAGEN DE GUARDAR  **************************************************/
 	$('#saveEval').live("mouseover", function() {
 		$(this).attr('width', '20');
 	});
 
+	//***************************************** SACAR EL MOUSE SOBRE LA IMAGEN DE GUARDAR  **************************************************/
 	$('#saveEval').live("mouseout", function() {
 		$(this).attr('width', '18');
 	});
 
+	//****************************************** HACER CLIC SOBRE LA IMAGEN DE GUARDAR  **************************************************/
 	$('#saveEval').live("click", function() {
-		
-		if(idResultado==0 || idCompetencia==0) {
-			jAlert("Debes seleccionar una competencia y un resultado de aprendizaje","Alerta");
+
+		if (idResultado == 0 || idCompetencia == 0) {
+			jAlert("Debes seleccionar una competencia y un resultado de aprendizaje", "Alerta");
 			return;
 		}
-		
-		//id del aprendiz
+
 		var idAprendiz = $(this).attr('name');
-		
-		var eval = $(this).attr('name'); //Numero de la evaluación
-
-		//Numero de la caja de texto donde se ingresa la nota
-		var txtNota = $(".txtNota" + eval);
-		//inputControl(txtNota, 'float');
-		var evaluacion = $("#evaluacion" + eval).val();
-		var nota =  txtNota.val();
-		
-		if(nota=="" || evaluacion=="") {
-			$(".txtNota" + eval).focus();
-			jAlert("Debes ingresar una calificación","Alerta");
+		var numero = $(this).attr('class');
+		//id del aprendiz
+		var txtEvaluacion = $("#txtEval"+numero);
+		var txtNota = $(".txtNota"+numero);
+		//alert(numero);
+		//alert(txtNota.attr("class"));
+		if (txtNota.val() == 0 || txtEvaluacion.val() == "") {
+			jAlert("Debes ingresar una calificación", "Alerta");
 			return;
 		}
-		
-		idActa = $('#txtIdActa').val();
 
-		if (evaluacion == "Aprobado") {
+		idActa = $('#txtIdActa').val();
+		var evaluacion = 0;
+		if (txtEvaluacion.val()== "Aprobado") {
 			evaluacion = 1;
-		} else if (evaluacion == "No Aprobado") {
+		} else if (txtEvaluacion.val() == "No Aprobado") {
 			evaluacion = 0;
 		}
 
 		function resultado(data) {
-			if(data.res=="si"){
-				 txtNota.css("background-color","#F2F0F0");
-				 $("#evaluacion" + eval).css("background-color","#F2F0F0");
+			if (data.res == "si") {
+				txtNota.css("background-color", "#F2F0F0");
+				txtEvaluacion.css("background-color", "#F2F0F0");
+				$("#saveDiv"+numero).hide();
 			}
 
 		}
 
-		$.post(siteRoot+"calificaciones/calificarAprendiz", {
+
+		$.post(siteRoot + "calificaciones/calificarAprendiz", {
 			acta_id : idActa,
 			aprendiz_id : idAprendiz,
 			resultado_id : idResultado,
 			instructor_id : idInstructor,
-			nota_aprendiz : nota,
+			nota_aprendiz : txtNota.val(),
 			evaluacion_aprendiz : evaluacion
 		}, resultado, "json");
 	});

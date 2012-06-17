@@ -254,7 +254,8 @@ class ActasController extends AppController {
         $frases = $this -> Frase -> find("list", array("fields" => array("id", "frase")));
         $this -> Acta -> recursive = 0;
         $infoActa = $this -> Acta -> find("all", array("conditions" => array("Acta.id" => $idActa)));
-
+		
+		//debug($infoActa);
         $this -> set(compact('competencias', 'aprendices', "frases", "idActa", "infoActa"));
     }
 

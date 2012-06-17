@@ -121,8 +121,10 @@ class CalificacionesController extends AppController {
 		if (!empty($datos)) {
 			$this -> Calificacione -> create();
 			if ($this -> Calificacione -> save($datos)) {
+    			$this->Session->write('save', '1');
 				$data["res"] = "si";
 			} else {
+				$this->Session->write('save', '0');
 				$data["res"] = "no";
 			}
 		} else {
@@ -130,6 +132,18 @@ class CalificacionesController extends AppController {
 		}
 
 		echo json_encode($data);
+	}
+
+	function obtenerCalificaciones() {
+		$this -> autoRender = false;
+		$this -> layout = 'ajax';
+		
+		$idActa = $_POST["id_acta"];
+		$idResultado = $_POST["id_resultado"];
+		
+		$calificaciones = $this->Calificacione->find("all", array("conditions"=>array("Calificacione.acta_id"=>$idActa, "Calificacione.resultadoaprendizaje_id"=>$idResultado)));
+		
+		print_r($calificaciones);	
 	}
 
 }
