@@ -34,84 +34,92 @@
 		</tr>
 	</table>
 	<br>
-	<table cellpadding="0" cellspacing="0" class="tabla" >
-		<tr>
-			<th>#</th>
-			<th>Identificacion</th>
-			<th width="40%">Nombres y apellidos</th>
-			<th>Nota</th>
-			<th>Evaluación</th>
-			<th>&nbsp;</th>
-			<th style="text-align: center;">Acciones</th>
-		</tr>
-		<?php $id = ""; $nombres =""; $i=0; foreach($aprendices as $aprendiz) {
-		?>
-		<tr>
-			<td><?php echo $i; ?></td>
-			<td id="documento"><?php $id = $aprendiz["Aprendice"]["id"];
-				echo $aprendiz["Aprendice"]["documento"];
-			?></td>
-			<td><?php echo $nombres = $aprendiz["Aprendice"]["nombres"] . " " . $aprendiz["Aprendice"]["apellidos"]; ?></td>
-			<td id="<?php echo $i; ?>">
-				<?php echo $this -> Form -> input('nota', array( "label" => false, 
-																						"type" => "text", 
-																						"id" => "txtNota", 
-																						"class"=>"txtNota".$i, 
-																						"name"=>$i, 
-																						"maxlength"=>3, 
-																						"style" => "width:100%;")); ?>
-			</td>
-			<td>
-				<?php echo $this -> Form -> input('evaluacion', array("label" => false, 
-																		"type" => "text",
-																		"class"=>"txtEval".$i, 
-																		"id"=>"txtEval".$i,
-																		'readonly' => 'readonly', 
-																		'size' => 13)); ?>
-		   </td>
-			
-			<td >
+	<div id="tabla_estudiantes" style="display: none;">
+		<table cellpadding="0" cellspacing="0" class="tabla" >
+			<tr>
+				<th>#</th>
+				<th>Identificacion</th>
+				<th width="40%">Nombres y apellidos</th>
+				<th>Nota</th>
+				<th>Evaluación</th>
+				<th>&nbsp;</th>
+				<th style="text-align: center;">Acciones</th>
+			</tr>
+			<?php $id = ""; $nombres =""; $i=0; foreach($aprendices as $aprendiz) {
+			?>
+			<tr>
+				<td><?php echo $i; ?></td>
+				<td id="documento"><?php $id = $aprendiz["Aprendice"]["id"];
+					echo $aprendiz["Aprendice"]["documento"];
+				?></td>
+				<td><?php echo $nombres = $aprendiz["Aprendice"]["nombres"] . " " . $aprendiz["Aprendice"]["apellidos"]; ?></td>
+				<td id="<?php echo $i; ?>">
+					
+					<!-- NOTA NUMERICA -->
+					<?php echo $this -> Form -> input('nota', array( "label" => false, 
+																							"type" => "text", 
+																							"id" => "txtNota", 
+																							"class"=>"txtNota".$id, 
+																							"name"=>$id, 
+																							"maxlength"=>3, 
+																						
+																							"style" => "width:100%;")); ?>
+				</td>
+				<td>
+					<!-- EVALUACIÓN -->
+					<?php echo $this -> Form -> input('evaluacion', array("label" => false, 
+																			"type" => "text",
+																			"class"=>"txtEval".$id, 
+																			"id"=>"txtEval".$id,
+																			'readonly' => 'readonly', 
+																			'size' => 10)); ?>
+			   </td>
 				
-				<?php if($this->Session->read('save')==0) { ?>
-				    <div id="saveDiv".<?php echo $i; ?> style="width: 20px; height: 20px; margin:2px; background-color: ;">
-				             <?php echo $this->Html->image('save2.gif', array("id"=>"saveEval", 
+				<td >
+					
+					<?php //if($this->Session->read('save')==0) { ?>
+					    <div id="saveDiv".<?php echo $i; ?> style="width: 20px; height: 20px; margin:2px; background-color: ;">
+					             <?php echo $this->Html->image('save2.gif', array("id"=>"saveEval", 
+					                                                              'alt' => 'Buscar instructores', 
+					                                                              'width'=>18,
+					                                                              'heigth'=>18,
+					                                                              'class'=>$i, //Numero
+		                                                                          'name'=>$id)); //Id Aprendiz ?>
+					     </div>
+				     <?php /*} ?>
+				     
+				    
+				     <div style="width: 20px; height: 20px; margin:2px; background-color: ;">
+				             <?php echo $this->Html->image('edit.gif', array("id"=>"editEval", 
 				                                                              'alt' => 'Buscar instructores', 
 				                                                              'width'=>18,
 				                                                              'heigth'=>18,
 				                                                              'class'=>$i, //Numero
-	                                                                          'name'=>$id)); //Id Aprendiz ?>
+	                                                                          'name'=>$id)); //Id Aprendiz 
+					  * 
+					  **/?>
 				     </div>
-			     <?php } ?>
-			     
-			    
-			     <div style="width: 20px; height: 20px; margin:2px; background-color: ;">
-			             <?php echo $this->Html->image('edit.gif', array("id"=>"editEval", 
-			                                                              'alt' => 'Buscar instructores', 
-			                                                              'width'=>18,
-			                                                              'heigth'=>18,
-			                                                              'class'=>$i, //Numero
-                                                                          'name'=>$id)); //Id Aprendiz ?>
-			     </div>
-			     
-			</td>
-			
-			<td class="actions"><a id="lnkComentarios" class="acciones" onclick="probar(<?php echo $id; ?>, <?php echo "'" . $nombres . "'"; ?>);">Comentarios</a><?php echo $this -> Html -> link(__('Insistencias'), array('action' => 'evaluarActa', 1), array('class' => "acciones")); ?>
-			<?php echo $this -> Html -> link(__('Plan mejor.'), array('action' => 'evaluarActa', 1), array('class' => "acciones")); ?>
-			<?php echo $this -> Html -> link(__('Imprimir'), array('action' => 'evaluarActa', 1), array('class' => "acciones")); ?></td>
-		</tr>
-		<?php
-		$i++;
-		}
-		?>
-	</table>
+				     
+				</td>
+				
+				<td class="actions"><a id="lnkComentarios" class="acciones" onclick="probar(<?php echo $id; ?>, <?php echo "'" . $nombres . "'"; ?>);">Comentarios</a><?php echo $this -> Html -> link(__('Insistencias'), array('action' => 'evaluarActa', 1), array('class' => "acciones")); ?>
+				<?php echo $this -> Html -> link(__('Plan mejor.'), array('action' => 'evaluarActa', 1), array('class' => "acciones")); ?>
+				<?php echo $this -> Html -> link(__('Imprimir'), array('action' => 'evaluarActa', 1), array('class' => "acciones")); ?></td>
+			</tr>
+			<?php
+			$i++;
+			}
+			?>
+		</table>
+	</div>
+	
+	
 	<div class="btn">
 		<?php echo $this -> Html -> link(__('Ver actas'), array('action' => 'index'), array('class' => "acciones")); ?>
 		<?php echo $this -> Html -> link(__('Alumnos cancelados'), array('action' => 'index'), array('class' => "acciones")); ?>
 		<?php echo $this -> Html -> link(__('Alumnos transladados'), array('action' => 'index'), array('class' => "acciones")); ?>
 	</div>
 	<br>
-	<?php echo $this -> Form -> end(__('Guardar')); ?>
-
 	</form>
 </div>
 <!-- MODAL 1 -->
