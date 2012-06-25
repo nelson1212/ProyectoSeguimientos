@@ -483,11 +483,11 @@ $(document).ready(function() {
 
 		var idAprendiz = $(this).attr('name');
 		var numero = $(this).attr('class');
+		
 		//id del aprendiz
 		var txtEvaluacion = $("#txtEval"+numero);
 		var txtNota = $(".txtNota"+numero);
-		//alert(numero);
-		//alert(txtNota.attr("class"));
+	
 		if (txtNota.val() == 0 || txtEvaluacion.val() == "") {
 			jAlert("Debes ingresar una calificación", "Alerta");
 			return;
