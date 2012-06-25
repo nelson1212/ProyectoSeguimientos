@@ -119,12 +119,19 @@ class CalificacionesController extends AppController {
 		$data = array();
 
 		if (!empty($datos)) {
-			$this -> Calificacione -> create();
-			if ($this -> Calificacione -> save($datos)) {
-    			$this->Session->write('save', '1');
-				$data["res"] = "si";
+			$comprobar = $this -> Calificacione -> find("count", array("conditions" => array("resultadoaprendizaje_id" => $datos["resultadoaprendizaje_id"], "aprendice_id" => $datos["aprendice_id"])));
+			//print_r($comprobar);
+			if ((int)$comprobar == 0) {
+				$this -> Calificacione -> create();
+				if ($this -> Calificacione -> save($datos)) {
+					//$this -> Session -> write('save', '1');
+					$data["res"] = "si";
+				} else {
+					//$this -> Session -> write('save', '0');
+					$data["res"] = "no";
+				}
+
 			} else {
-				$this->Session->write('save', '0');
 				$data["res"] = "no";
 			}
 		} else {
@@ -137,13 +144,21 @@ class CalificacionesController extends AppController {
 	function obtenerCalificaciones() {
 		$this -> autoRender = false;
 		$this -> layout = 'ajax';
-		
+
 		$idActa = $_POST["id_acta"];
 		$idResultado = $_POST["id_resultado"];
-		
-		$calificaciones = $this->Calificacione->find("all", array("conditions"=>array("Calificacione.acta_id"=>$idActa, "Calificacione.resultadoaprendizaje_id"=>$idResultado)));
-		
-		print_r($calificaciones);	
+
+		$this -> Calificacione -> recursive = -1;
+		$calificaciones = $this -> Calificacione -> find("all", array("conditions" => array("Calificacione.acta_id" => $idActa, "Calificacione.resultadoaprendizaje_id" => $idResultado)));
+
+		$data = array();
+		if (!empty($calificaciones)) {
+			for ($i = 0; $i < count($calificaciones); $i++) {
+				$data[] = $calificaciones[$i]['Calificacione'];
+			}
+		}
+		//print_r($data);
+		echo json_encode($data);
 	}
 
 }

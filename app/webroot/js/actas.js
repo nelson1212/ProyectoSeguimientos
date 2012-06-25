@@ -13,6 +13,32 @@ $(document).ready(function() {
 	var pathname = window.location.pathname;
 
 	// alert(pathname);
+	function dump(arr, level) {
+		var dumped_text = "";
+		if (!level)
+			level = 0;
+
+		//The padding given at the beginning of the line.
+		var level_padding = "";
+		for (var j = 0; j < level + 1; j++)
+			level_padding += "    ";
+
+		if ( typeof (arr) == 'object') {//Array/Hashes/Objects
+			for (var item in arr) {
+				var value = arr[item];
+
+				if ( typeof (value) == 'object') {//If it is an array,
+					dumped_text += level_padding + "'" + item + "' ...\n";
+					dumped_text += dump(value, level + 1);
+				} else {
+					dumped_text += level_padding + "'" + item + "' => \"" + value + "\"\n";
+				}
+			}
+		} else {//Stings/Chars/Numbers etc.
+			dumped_text = "===>" + arr + "<===(" + typeof (arr) + ")";
+		}
+		return dumped_text;
+	}
 
 	function probar(id, nombres) {
 		var idCompetencia = $("#txtComId").val();
@@ -297,6 +323,7 @@ $(document).ready(function() {
 	});
 
 	//**************************************************** DOBLE CLIC EN RESULTADOS DE APRENDIZAJE *************************************************************/
+
 	$("#cboResultados").dblclick(function() {
 
 		idResultado = $("#cboResultados option:selected").val();
@@ -307,10 +334,50 @@ $(document).ready(function() {
 		$("#txtCompetencia").val(nomCompetencia);
 		$("#txtResultado").val(nomResultado);
 
+		function limpiarTabla() {
+			$("#tabla_estudiantes tr td :input").each(function() {
+				$(this).val("");
+			});
+		}
+
+		limpiarTabla();
+
 		function resultado(data) {
 			if (data.res == "si") {
 				$("#txtResponsable").val(data.nombre_completo);
 				idInstructor = data.id_instructor;
+				$("#tabla_estudiantes").show();
+
+				function resultado2(data) {
+					if (data.length > 0) {
+						$.each(data, function(i, item) {
+							$(".txtNota" + data[i].aprendice_id).val(data[i].cal_num);
+							if (data[i].aprobado == 1) {
+								$(".txtEval" + data[i].aprendice_id).val("Aprobado");
+							} else if (data[i].aprobado == 0) {
+								$(".txtEval" + data[i].aprendice_id).val("No Aprobado");
+							}
+						});
+					}
+				}
+
+				$.post(siteRoot + "calificaciones/obtenerCalificaciones", {
+					id_acta : idActa,
+					id_resultado : idResultado
+				}, resultado2, "json");
+
+				/*function limpiarColor() {
+					$("#tabla_estudiantes tr td :input").each(function() {
+						if ($(this).val().length==0) {
+							alert("Hola");
+							$(this).css("background-color", "white");
+							$(this).css("background-color", "white");
+						}
+					});
+				} */
+				
+				//limpiarColor();
+				
 			} else if (data.res == "no") {
 				$("#txtResponsable").val("");
 				idInstructor = 0;
@@ -321,16 +388,10 @@ $(document).ready(function() {
 		$.post(siteRoot + "actas/obtenerIntructorResultadoAprendizaje", {
 			idRes : idResultado
 		}, resultado, "json");
-		
+
 		idActa = $('#txtIdActa').val();
 		idGrupo = $('#txtIdGrupo').val();
-		
-		$.post(siteRoot + "calificaciones/obtenerCalificaciones", {
-			id_acta : idActa, 
-			id_resultado: idResultado
-		}, resultado, "json");
-		
-		
+
 	});
 
 	//FIN Evaluar grupo ***************************************************************************************************
@@ -433,14 +494,14 @@ $(document).ready(function() {
 
 	});
 
-	
 	//**************************************************** INGRESO Y VALIDACIÓN DE CALIFICACIONES *************************************************************/
 	$("#txtNota").live('keyup', function(event) {
 		var classNota = $(this).attr("class");
-		var txtNota = $("."+classNota);
-		//alert(classNota);
-		var numero =  $(this).attr("name");
-		var txtEvaluacion = $("#txtEval"+numero);
+		var txtNota = $("." + classNota);
+
+		var aprendiz = $(this).attr("name");
+		//alert(numero);
+		var txtEvaluacion = $("#txtEval" + aprendiz);
 
 		inputControl(txtNota, 'float');
 
@@ -482,12 +543,21 @@ $(document).ready(function() {
 		}
 
 		var idAprendiz = $(this).attr('name');
+<<<<<<< HEAD
 		var numero = $(this).attr('class');
 		
 		//id del aprendiz
 		var txtEvaluacion = $("#txtEval"+numero);
 		var txtNota = $(".txtNota"+numero);
 	
+=======
+
+		//id del aprendiz
+		var txtEvaluacion = $("#txtEval" + idAprendiz);
+		var txtNota = $(".txtNota" + idAprendiz);
+		//alert(numero);
+		//alert(txtNota.attr("class"));
+>>>>>>> d0735c5e1ab44fbd173634683c3ad49f70dfc129
 		if (txtNota.val() == 0 || txtEvaluacion.val() == "") {
 			jAlert("Debes ingresar una calificación", "Alerta");
 			return;
@@ -495,7 +565,7 @@ $(document).ready(function() {
 
 		idActa = $('#txtIdActa').val();
 		var evaluacion = 0;
-		if (txtEvaluacion.val()== "Aprobado") {
+		if (txtEvaluacion.val() == "Aprobado") {
 			evaluacion = 1;
 		} else if (txtEvaluacion.val() == "No Aprobado") {
 			evaluacion = 0;
@@ -505,7 +575,7 @@ $(document).ready(function() {
 			if (data.res == "si") {
 				txtNota.css("background-color", "#F2F0F0");
 				txtEvaluacion.css("background-color", "#F2F0F0");
-				$("#saveDiv"+numero).hide();
+				$("#saveDiv" + idAprendiz).hide();
 			}
 
 		}
