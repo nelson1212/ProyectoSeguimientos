@@ -83,8 +83,8 @@
 					                                                              'alt' => 'Buscar instructores', 
 					                                                              'width'=>18,
 					                                                              'heigth'=>18,
-					                                                              'class'=>$i, //Numero
-		                                                                          'name'=>$id)); //Id Aprendiz ?>
+					                                                              'class'=>"saveEval_".$id, //Id Aprendiz
+		                                                                          'name'=>"")); //Id Aprendiz ?>
 					     </div>
 				     <?php /*} ?>
 				     
@@ -102,7 +102,7 @@
 				     
 				</td>
 				
-				<td class="actions"><a id="lnkComentarios" class="acciones" onclick="probar(<?php echo $id; ?>, <?php echo "'" . $nombres . "'"; ?>);">Comentarios</a><?php echo $this -> Html -> link(__('Insistencias'), array('action' => 'evaluarActa', 1), array('class' => "acciones")); ?>
+				<td class="actions"><a id="lnkComentarios" class="acciones" name="<?php echo $id; ?>">Comentarios</a><?php echo $this -> Html -> link(__('Insistencias'), array('action' => 'evaluarActa', 1), array('class' => "acciones")); ?>
 				<?php echo $this -> Html -> link(__('Plan mejor.'), array('action' => 'evaluarActa', 1), array('class' => "acciones")); ?>
 				<?php echo $this -> Html -> link(__('Imprimir'), array('action' => 'evaluarActa', 1), array('class' => "acciones")); ?></td>
 			</tr>

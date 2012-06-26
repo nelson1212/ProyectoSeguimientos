@@ -107,7 +107,8 @@ class CalificacionesController extends AppController {
 		$this -> autoRender = false;
 		$this -> layout = 'ajax';
 		$datos = array();
-		//print_r($_POST);
+		//print_r($_POST);IO
+		$accion = $_POST['action'];
 		$datos["aprobado"] = $_POST["evaluacion_aprendiz"];
 		$datos["cal_num"] = $_POST["nota_aprendiz"];
 		$datos["acta_id"] = $_POST["acta_id"];
@@ -115,24 +116,34 @@ class CalificacionesController extends AppController {
 		$datos["resultadoaprendizaje_id"] = $_POST["resultado_id"];
 		$datos["instructore_id"] = $_POST["instructor_id"];
 
-		//print_r($datos);
 		$data = array();
 
 		if (!empty($datos)) {
+
 			$comprobar = $this -> Calificacione -> find("count", array("conditions" => array("resultadoaprendizaje_id" => $datos["resultadoaprendizaje_id"], "aprendice_id" => $datos["aprendice_id"])));
 			//print_r($comprobar);
 			if ((int)$comprobar == 0) {
 				$this -> Calificacione -> create();
 				if ($this -> Calificacione -> save($datos)) {
 					//$this -> Session -> write('save', '1');
+					$data["accion"] = "guardar";
 					$data["res"] = "si";
 				} else {
 					//$this -> Session -> write('save', '0');
 					$data["res"] = "no";
 				}
 
-			} else {
-				$data["res"] = "no";
+			} else if ((int)$comprobar == 1) {
+				$id = $this -> Calificacione -> find("list", array("fields" => array("id"), "conditions" => array("resultadoaprendizaje_id" => $datos["resultadoaprendizaje_id"], "aprendice_id" => $datos["aprendice_id"])));
+				$data["accion"] = "editar";
+				$this -> Calificacione -> id = $id;
+				$datos["aprobado"] = $_POST["evaluacion_aprendiz"];
+				$datos["cal_num"] = $_POST["nota_aprendiz"];
+				if ($this -> Calificacione -> save($datos)) {
+					$data["res"] = "si";
+				} else {
+					$data["res"] = "no";
+				}
 			}
 		} else {
 			$data["res"] = "no";

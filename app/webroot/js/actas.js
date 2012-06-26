@@ -40,7 +40,9 @@ $(document).ready(function() {
 		return dumped_text;
 	}
 
-	function probar(id, nombres) {
+	$("#lnkComentarios").live("click",function() {
+		//alert("Hola");
+		/*
 		var idCompetencia = $("#txtComId").val();
 		var documento = $("#documento").html();
 		$("#nombreAprendiz").html(nombres);
@@ -63,14 +65,14 @@ $(document).ready(function() {
 				//alert("Error al intentar cargar el concepto");
 			}
 		}
-
+                  */
 
 		$('#modal_comentarios').modal({
 			close : true
 		});
 		return false;
 
-	}
+	});
 
 	function inputControl(input, format) {
 		var value = input.val();
@@ -348,6 +350,7 @@ $(document).ready(function() {
 				idInstructor = data.id_instructor;
 				$("#tabla_estudiantes").show();
 
+				//Recorre  todo el arreglo retornado desde "calificaciones/obtenerCalificaciones"
 				function resultado2(data) {
 					if (data.length > 0) {
 						$.each(data, function(i, item) {
@@ -357,27 +360,33 @@ $(document).ready(function() {
 							} else if (data[i].aprobado == 0) {
 								$(".txtEval" + data[i].aprendice_id).val("No Aprobado");
 							}
+
+							$(".saveEval_" + data[i].aprendice_id).attr("src", siteRoot + "img/edit.gif");
+							$(".saveEval_" + data[i].aprendice_id).attr("name", "edit");
 						});
+
+						//BackGroud Color a las cajas de texto que quedan llenas
+						
+						$("#tabla_estudiantes tr td :input").each(function() {
+							if ($(this).val().length != 0) {
+								$(this).css("background-color", "#F2F0F0");
+								$(this).css("background-color", "#F2F0F0");
+							}else if ($(this).val().length != 0) {
+								$(this).css("background-color", "#F2F0D0");
+								$(this).css("background-color", "#F2F0D0");
+							}
+						});
+
+
 					}
 				}
+
 
 				$.post(siteRoot + "calificaciones/obtenerCalificaciones", {
 					id_acta : idActa,
 					id_resultado : idResultado
 				}, resultado2, "json");
 
-				/*function limpiarColor() {
-					$("#tabla_estudiantes tr td :input").each(function() {
-						if ($(this).val().length==0) {
-							alert("Hola");
-							$(this).css("background-color", "white");
-							$(this).css("background-color", "white");
-						}
-					});
-				} */
-				
-				//limpiarColor();
-				
 			} else if (data.res == "no") {
 				$("#txtResponsable").val("");
 				idInstructor = 0;
@@ -537,16 +546,29 @@ $(document).ready(function() {
 	//****************************************** HACER CLIC SOBRE LA IMAGEN DE GUARDAR  **************************************************/
 	$('#saveEval').live("click", function() {
 
+		var accion = $(this).attr("name");
+		var classIcon = $(this).attr("class");
+		classIcon = classIcon.split("_");
+		var id_Apre = classIcon[1];
+		//alert(accion);
+		if (accion == "edit") {
+			$(".saveEval_" + id_Apre).attr("name", "save");
+			$(".saveEval_" + id_Apre).attr("src", siteRoot + "img/save.gif");
+			$(".txtNota" + id_Apre).css("background-color", "white");
+			$(".txtEval" + id_Apre).css("background-color", "white");
+			return;
+		}
+
 		if (idResultado == 0 || idCompetencia == 0) {
 			jAlert("Debes seleccionar una competencia y un resultado de aprendizaje", "Alerta");
 			return;
 		}
 
-		var idAprendiz = $(this).attr('name');
+		//var id_Apre = $(this).attr('name');
 
 		//id del aprendiz
-		var txtEvaluacion = $("#txtEval" + idAprendiz);
-		var txtNota = $(".txtNota" + idAprendiz);
+		var txtEvaluacion = $("#txtEval" + id_Apre);
+		var txtNota = $(".txtNota" + id_Apre);
 		//alert(numero);
 		//alert(txtNota.attr("class"));
 		if (txtNota.val() == 0 || txtEvaluacion.val() == "") {
@@ -564,9 +586,11 @@ $(document).ready(function() {
 
 		function resultado(data) {
 			if (data.res == "si") {
-				txtNota.css("background-color", "#F2F0F0");
-				txtEvaluacion.css("background-color", "#F2F0F0");
-				$("#saveDiv" + idAprendiz).hide();
+					txtNota.css("background-color", "#F2F0F0");
+					txtEvaluacion.css("background-color", "#F2F0F0");
+					$(".saveEval_" + id_Apre).attr("src", siteRoot + "img/edit.gif");
+					$(".saveEval_" + id_Apre).attr("name", "edit");
+					//$("#saveDiv" + id_Apre).hide();
 			}
 
 		}
@@ -574,12 +598,14 @@ $(document).ready(function() {
 
 		$.post(siteRoot + "calificaciones/calificarAprendiz", {
 			acta_id : idActa,
-			aprendiz_id : idAprendiz,
+			aprendiz_id : id_Apre,
 			resultado_id : idResultado,
 			instructor_id : idInstructor,
 			nota_aprendiz : txtNota.val(),
-			evaluacion_aprendiz : evaluacion
+			evaluacion_aprendiz : evaluacion,
+			action : accion
 		}, resultado, "json");
+
 	});
 
 });
