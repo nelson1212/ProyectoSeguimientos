@@ -564,13 +564,26 @@ $(document).ready(function() {
 			return;
 		}
 
+<<<<<<< HEAD
 		//var id_Apre = $(this).attr('name');
+=======
+		var idAprendiz = $(this).attr('name');
+<<<<<<< HEAD
+		var numero = $(this).attr('class');
+		
+		//id del aprendiz
+		var txtEvaluacion = $("#txtEval"+numero);
+		var txtNota = $(".txtNota"+numero);
+	
+=======
+>>>>>>> d7d7750e700d90e5b65827d6830efba76d0d7d30
 
 		//id del aprendiz
 		var txtEvaluacion = $("#txtEval" + id_Apre);
 		var txtNota = $(".txtNota" + id_Apre);
 		//alert(numero);
 		//alert(txtNota.attr("class"));
+>>>>>>> d0735c5e1ab44fbd173634683c3ad49f70dfc129
 		if (txtNota.val() == 0 || txtEvaluacion.val() == "") {
 			jAlert("Debes ingresar una calificación", "Alerta");
 			return;
