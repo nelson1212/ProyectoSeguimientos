@@ -40,15 +40,15 @@ $(document).ready(function() {
 		return dumped_text;
 	}
 
-	$("#lnkComentarios").live("click",function() {
-		//alert("Hola");
-		/*
+	//********************************************* COMENTARIOS **********************************************************************
+	$("#lnkComentarios").live("click", function() {
+
 		var idCompetencia = $("#txtComId").val();
 		var documento = $("#documento").html();
-		$("#nombreAprendiz").html(nombres);
-		$("#txtIdAprendiz").val(id);
-
-		var idAprendiz = $("#txtIdAprendiz").val();
+		//$("#nombreAprendiz").html(nombres);
+		//$("#txtIdAprendiz").val(id);
+	    
+		idAprendiz = $(this).attr("name");
 		var idActa = $("#txtIdActa").val();
 		var concepto = $("#txtComentarios").val();
 
@@ -61,11 +61,9 @@ $(document).ready(function() {
 		function resultado(data) {
 			if (data.res == "si") {
 				$("#modal_comentarios  #txtComentarios").val(data.concepto);
-			} else {
-				//alert("Error al intentar cargar el concepto");
 			}
 		}
-                  */
+
 
 		$('#modal_comentarios').modal({
 			close : true
@@ -73,6 +71,41 @@ $(document).ready(function() {
 		return false;
 
 	});
+
+
+	//********************************************* INASISTENCIAS **********************************************************************
+	$("#lnkInasistencias").live("click", function() {
+     /*
+		var idCompetencia = $("#txtComId").val();
+		var documento = $("#documento").html();
+		//$("#nombreAprendiz").html(nombres);
+		//$("#txtIdAprendiz").val(id);
+	    
+		idAprendiz = $(this).attr("name");
+		var idActa = $("#txtIdActa").val();
+		var concepto = $("#txtComentarios").val();
+
+		$.post(siteRoot + "conceptualaprendices/cargarConcepto", {
+			aprendiz : idAprendiz,
+			acta : idActa,
+			concep : concepto
+		}, resultado, "json");
+
+		function resultado(data) {
+			if (data.res == "si") {
+				$("#modal_comentarios  #txtComentarios").val(data.concepto);
+			}
+		}
+
+*/
+		$('#modal_inasistencias').modal({
+			close : true
+		});
+		return false;
+
+	});
+
+
 
 	function inputControl(input, format) {
 		var value = input.val();
@@ -290,13 +323,23 @@ $(document).ready(function() {
 
 	});
 
-	// EVALUAR GRUPO ***************************************************************************************************
+	// LUPA SELECCIONAR COMPETENCIAS ***************************************************************************************************
 
 	$("#lpaCompetencias").click(function() {
 		$('#modal_comp_resul').modal({
 			close : true
 		});
 		return false;
+	});
+
+	//MOUSE SOBRE LA LUPA
+	$('#lpaCompetencias').mouseover(function() {
+		$(this).attr('width', '28');
+	});
+
+	//MOUSE AL SALIR DE LA LUPA
+	$('#lpaCompetencias').mouseout(function() {
+		$(this).attr('width', '24');
 	});
 
 	//**************************************************** SELECCIONAR COMPETENCIAS Y OBTENER RESULTADOS DE APRENDIZAJE **************************************/
@@ -353,33 +396,21 @@ $(document).ready(function() {
 				//Recorre  todo el arreglo retornado desde "calificaciones/obtenerCalificaciones"
 				function resultado2(data) {
 					if (data.length > 0) {
+
 						$.each(data, function(i, item) {
 							$(".txtNota" + data[i].aprendice_id).val(data[i].cal_num);
+							$(".txtNota" + data[i].aprendice_id).css("background-color", "#F2F0F0");
+
 							if (data[i].aprobado == 1) {
 								$(".txtEval" + data[i].aprendice_id).val("Aprobado");
 							} else if (data[i].aprobado == 0) {
 								$(".txtEval" + data[i].aprendice_id).val("No Aprobado");
 							}
 
+							$(".txtEval" + data[i].aprendice_id).css("background-color", "#F2F0F0");
 							$(".saveEval_" + data[i].aprendice_id).attr("src", siteRoot + "img/edit.gif");
 							$(".saveEval_" + data[i].aprendice_id).attr("name", "edit");
 						});
-
-						//BackGroud Color a las cajas de texto que quedan llenas
-						
-						$("#tabla_estudiantes tr td :input").each(function() {
-							if ($(this).val().length != 0) {
-								$(this).css("background-color", "#F2F0F0");
-								$(this).css("background-color", "#F2F0F0");
-							}else if ($(this).val().length != 0) {
-								$(this).css("background-color", "#F2F0D0");
-								$(this).css("background-color", "#F2F0D0");
-							}
-						});
-
-
-					} else {
-						alert("Hola");
 					}
 				}
 
@@ -395,6 +426,20 @@ $(document).ready(function() {
 			}
 		}
 
+		//Restablecer el fondo original de las cajas de texo
+		if ($("#tabla_estudiantes").is(":visible")) {
+			$("#tabla_estudiantes tr td :input").each(function() {
+				if ($(this).val().length == 0) {
+
+					$(this).css("background-color", "");
+					$(this).css("background-color", "");
+
+					$(".saveEval_" + $(this).attr("name")).attr("src", siteRoot + "img/save.gif");
+					$(".saveEval_" + $(this).attr("name")).attr("name", "save");
+
+				}
+			});
+		}
 
 		$.post(siteRoot + "actas/obtenerIntructorResultadoAprendizaje", {
 			idRes : idResultado
@@ -479,12 +524,12 @@ $(document).ready(function() {
 	//Guardar comentarios
 	$("#modal_comentarios  #btnGuardar").click(function() {
 
-		idAprendiz = $("#txtIdAprendiz").val();
+		//idAprendiz = $("#txtIdAprendiz").val();
 		idActa = $("#txtIdActa").val();
 		var concepto = $("#txtComentarios").val();
 
 		if (concepto == "") {
-			alert("Debes ingresar un concepto para el aprendiz");
+			jAlert("Debes ingresar un concepto para el aprendiz");
 			$("#txtComentarios").focus();
 		}
 
@@ -556,8 +601,8 @@ $(document).ready(function() {
 		if (accion == "edit") {
 			$(".saveEval_" + id_Apre).attr("name", "save");
 			$(".saveEval_" + id_Apre).attr("src", siteRoot + "img/save.gif");
-			$(".txtNota" + id_Apre).css("background-color", "white");
-			$(".txtEval" + id_Apre).css("background-color", "white");
+			$(".txtNota" + id_Apre).css("background-color", "");
+			$(".txtEval" + id_Apre).css("background-color", "");
 			return;
 		}
 
@@ -566,18 +611,15 @@ $(document).ready(function() {
 			return;
 		}
 
-
 		//var id_Apre = $(this).attr('name');
-
 		var idAprendiz = $(this).attr('name');
-
-		var numero = $(this).attr('class');
+		//$("#txtIdAprendiz").val(idAprendiz);
 		
-		//id del aprendiz
-		var txtEvaluacion = $("#txtEval"+numero);
-		var txtNota = $(".txtNota"+numero);
-	
+		var numero = $(this).attr('class');
 
+		//id del aprendiz
+		var txtEvaluacion = $("#txtEval" + numero);
+		var txtNota = $(".txtNota" + numero);
 
 		//id del aprendiz
 		var txtEvaluacion = $("#txtEval" + id_Apre);
@@ -600,11 +642,11 @@ $(document).ready(function() {
 
 		function resultado(data) {
 			if (data.res == "si") {
-					txtNota.css("background-color", "#F2F0F0");
-					txtEvaluacion.css("background-color", "#F2F0F0");
-					$(".saveEval_" + id_Apre).attr("src", siteRoot + "img/edit.gif");
-					$(".saveEval_" + id_Apre).attr("name", "edit");
-					//$("#saveDiv" + id_Apre).hide();
+				txtNota.css("background-color", "#F2F0F0");
+				txtEvaluacion.css("background-color", "#F2F0F0");
+				$(".saveEval_" + id_Apre).attr("src", siteRoot + "img/edit.gif");
+				$(".saveEval_" + id_Apre).attr("name", "edit");
+				//$("#saveDiv" + id_Apre).hide();
 			}
 
 		}
@@ -622,4 +664,7 @@ $(document).ready(function() {
 
 	});
 
+
+//********************************************* DATETIMEPICKER INASISTENCIAS
+$("#divFecIna").datetimepicker();
 });

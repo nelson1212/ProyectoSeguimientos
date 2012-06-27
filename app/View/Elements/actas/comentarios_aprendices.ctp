@@ -1,4 +1,4 @@
-	<h2 id="titulo_menu">Comentarios para: <span id="nombreAprendiz"></span></h2>
+	<h2 id="titulo_menu">Comentarios</h2>
 	<table border="0">
 		<tr>
 			<td><b>Agregar frase</b></td>

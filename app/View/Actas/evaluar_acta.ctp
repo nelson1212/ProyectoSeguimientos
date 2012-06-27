@@ -11,7 +11,11 @@
 			    <?php echo $this -> Form -> input('competencia_id', array("label" => "", "type" => "text", "id" => "txtCompetencia", 'readonly' => 'readonly', "title" => "")); ?>
 			    
 			</td>
-			<td ><?php echo $this->Html->image('lupa.png', array("id"=>"lpaCompetencias", 'alt' => 'Buscar instructores'))?></td>
+			<td >
+			    <div id="divLupa" style="width: 20px; height: 20px; margin:2px;">
+			         <?php echo $this->Html->image('lupa.png', array("id"=>"lpaCompetencias",  'width'=>24,'heigth'=>24)); ?>
+			    </div>
+			</td>
 			
 		</tr>
 		<tr>
@@ -72,7 +76,7 @@
 																			"class"=>"txtEval".$id, 
 																			"id"=>"txtEval".$id,
 																			'readonly' => 'readonly', 
-																			'size' => 10)); ?>
+																			'size' => 12)); ?>
 			   </td>
 				
 				<td >
@@ -102,7 +106,9 @@
 				     
 				</td>
 				
-				<td class="actions"><a id="lnkComentarios" class="acciones" name="<?php echo $id; ?>">Comentarios</a><?php echo $this -> Html -> link(__('Insistencias'), array('action' => 'evaluarActa', 1), array('class' => "acciones")); ?>
+				<td class="actions">
+				    <a id="lnkComentarios" class="acciones" name="<?php echo $id; ?> alt="<?php echo $nombres; ?>">Comentarios</a>
+				    <a id="lnkInasistencias" class="acciones" name="<?php echo $id; ?> alt="<?php echo $nombres; ?>">Inasistencias</a>
 				<?php echo $this -> Html -> link(__('Plan mejor.'), array('action' => 'evaluarActa', 1), array('class' => "acciones")); ?>
 				<?php echo $this -> Html -> link(__('Imprimir'), array('action' => 'evaluarActa', 1), array('class' => "acciones")); ?></td>
 			</tr>
@@ -141,3 +147,8 @@
 <div class="modal" id="modal_comentarios" name="modal_comentarios" style="display: none; text-align: left; font-style: bold;">
 	<?php echo $this -> element("actas/comentarios_aprendices"); ?>
 </div>
+<!-- INASISTENCIAS -->
+<div class="modal" id="modal_inasistencias" name="modal_inasistencias" style="display: none; text-align: left; font-style: bold;">
+    <?php echo $this -> element("actas/inasistencias_aprendices"); ?>
+</div>
+

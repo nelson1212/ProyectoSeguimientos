@@ -61,7 +61,7 @@ class ConceptualaprendicesController extends AppController {
 		$this -> layout = "";
 		$this -> autoRender = false;
 		$res = array();
-
+       // print_r($_POST);
 		if ($this -> request -> is('post')) {
 			$existeConcepto = $this -> Conceptualaprendice -> find("list", array('fields' => array("concepto"), "conditions" => array("Conceptualaprendice.aprendice_id" => $_POST['aprendiz'], 'Conceptualaprendice.acta_id' => $_POST['acta'])));
 			$idConcepto = "";
