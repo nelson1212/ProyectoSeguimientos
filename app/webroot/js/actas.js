@@ -209,7 +209,9 @@ $(document).ready(function() {
 		return false;
 	});
 
-	//Obtener especialdiades
+	//**************************** CREAR ACTAS ************************************************************************************************************
+	
+	
 	$("#cboEspecialidades").change(function() {
 		//Id Especialdiad
 		idEspe = $("#cboEspecialidades").val();

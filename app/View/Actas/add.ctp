@@ -6,8 +6,8 @@
 	<table border="0" width="100%" id="formulario" cellpadding="0" cellspacing="0">
 		<tr>
 			<td width="25%"><label>Especifica la especialidad</label></td>
-			<td width="36%">
-				<?php echo $this->Form->input('Especialdiad.especialidad_id', array("label"=>false,"type"=>"select",  "id"=>"txtEspecialidades", 'options'=>$especialidades)); ?>
+			<td width="56%">
+				<?php echo $this->Form->input('Especialdiad.especialidad_id', array("label"=>false,"type"=>"select", 'empty'=>"Seleccione...", "id"=>"cboEspecialidades", 'options'=>$especialidades)); ?>
 				<?php echo $this->Form->input('Acta.especialidad_id', array("id"=>"idEspecialidad","type"=>"hidden")); ?>
 				
 			</td>
@@ -58,14 +58,14 @@
                                                                     "type"=>"select", 'multiple' => true,
                                                                     'label'=>"")); ?></td>
                                                                     
-			<td><?php echo $this->Html->image('lupa.png', array("id"=>"instructores", 'alt' => 'Buscar instructores'))?></td>
+			<td><?php echo $this->Html->image('lupa.png', array("id"=>"instructores", 'alt' => 'Buscar instructores', 'width'=>25, 'heigth'=>25))?></td>
 		</tr>
 		<tr>
 			<td width="230px"><label>Cordinadores y otros</label></td>
 			<td><?php echo $this->Form->input('Actausuario.usuariosid', array("size"=>3,"id"=>"cboUsuariosSel",
                                                                     "type"=>"select", 'multiple' => true,
                                                                     'label'=>"")); ?></td>
-			<td><?php echo $this->Html->image('lupa.png', array('id'=>"lupa_cordinadores",'alt' => 'Buscar cordinadores y otros'))?></td>
+			<td><?php echo $this->Html->image('lupa.png', array('id'=>"lupa_cordinadores",'alt' => 'Buscar cordinadores y otros', 'width'=>25, 'heigth'=>25))?></td>
 		<tr>
 			<td width="230px">&nbsp;</td>
 		
