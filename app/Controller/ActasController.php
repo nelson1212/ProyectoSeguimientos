@@ -70,8 +70,9 @@ class ActasController extends AppController {
             $this -> paginate = array('conditions' => $conditions);
         }
 
-        //$this -> paginate = array('limit' => 10);
+        $this -> paginate = array('limit' => 10);
         $actas = $this -> paginate();
+        debug($actas);
         $this -> set(compact('actas'));
     }
 
@@ -98,6 +99,10 @@ class ActasController extends AppController {
         $this -> layout = "principal";
         if ($this -> request -> is('post')) {
             $data = array();
+            
+            //debug($this->data);
+            //return;
+            
             $data = array("Acta" => $this -> data["Acta"]);
 
             foreach ($this->data["Actainstructore"]["instructore_id"] as $key => $value) {
@@ -113,9 +118,10 @@ class ActasController extends AppController {
             }
 
             $this -> Acta -> create();
+           // debug($data);
             if ($this -> Acta -> saveAll($data)) {
                 $this -> Session -> setFlash(__('El acta fue creada correctamente'));
-                $this -> redirect(array('action' => 'index'));
+               // $this -> redirect(array('action' => 'index'));
             } else {
                 $this -> Session -> setFlash(__('El acta no fue creada correctamente. Por favor, intenta de nuevo.'));
             }
@@ -196,13 +202,15 @@ class ActasController extends AppController {
 
         $this -> loadModel("Grupo");
         $grupos = $this -> Grupo -> find("list", array("conditions" => array("Grupo.versionespecialidade_id" => $idVersionEsp)));
+        
+       // print_r($grupos);
         /*for ($i = 0; $i < count($grupos); $i++) {
          $gruposJson[$grupos[$i]["grupos"]["id"]] = $grupos[$i]["grupos"]["nombre"];
          } */
 
         //print_r($idVersionEsp);
 
-        echo json_encode($gruposJson);
+        echo json_encode($grupos);
     }
 
     //Funci�n que obtiene los instructores asociados a una especialdiad

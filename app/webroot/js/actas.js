@@ -47,7 +47,7 @@ $(document).ready(function() {
 		var documento = $("#documento").html();
 		//$("#nombreAprendiz").html(nombres);
 		//$("#txtIdAprendiz").val(id);
-	    
+
 		idAprendiz = $(this).attr("name");
 		var idActa = $("#txtIdActa").val();
 		var concepto = $("#txtComentarios").val();
@@ -72,40 +72,37 @@ $(document).ready(function() {
 
 	});
 
-
 	//********************************************* INASISTENCIAS **********************************************************************
 	$("#lnkInasistencias").live("click", function() {
-     /*
-		var idCompetencia = $("#txtComId").val();
-		var documento = $("#documento").html();
-		//$("#nombreAprendiz").html(nombres);
-		//$("#txtIdAprendiz").val(id);
-	    
-		idAprendiz = $(this).attr("name");
-		var idActa = $("#txtIdActa").val();
-		var concepto = $("#txtComentarios").val();
+		/*
+		 var idCompetencia = $("#txtComId").val();
+		 var documento = $("#documento").html();
+		 //$("#nombreAprendiz").html(nombres);
+		 //$("#txtIdAprendiz").val(id);
 
-		$.post(siteRoot + "conceptualaprendices/cargarConcepto", {
-			aprendiz : idAprendiz,
-			acta : idActa,
-			concep : concepto
-		}, resultado, "json");
+		 idAprendiz = $(this).attr("name");
+		 var idActa = $("#txtIdActa").val();
+		 var concepto = $("#txtComentarios").val();
 
-		function resultado(data) {
-			if (data.res == "si") {
-				$("#modal_comentarios  #txtComentarios").val(data.concepto);
-			}
-		}
+		 $.post(siteRoot + "conceptualaprendices/cargarConcepto", {
+		 aprendiz : idAprendiz,
+		 acta : idActa,
+		 concep : concepto
+		 }, resultado, "json");
 
-*/
+		 function resultado(data) {
+		 if (data.res == "si") {
+		 $("#modal_comentarios  #txtComentarios").val(data.concepto);
+		 }
+		 }
+
+		 */
 		$('#modal_inasistencias').modal({
 			close : true
 		});
 		return false;
 
 	});
-
-
 
 	function inputControl(input, format) {
 		var value = input.val();
@@ -210,22 +207,24 @@ $(document).ready(function() {
 	});
 
 	//**************************** CREAR ACTAS ************************************************************************************************************
-	
-	
+
+	/*
 	$("#cboEspecialidades").change(function() {
-		//Id Especialdiad
-		idEspe = $("#cboEspecialidades").val();
-		$("#idEspecialidad").val(idEspe);
+	//Id Especialdiad
+	//alert("Entro aqui");
+	idEspe = $("#cboEspecialidades").val();
+	//jAlert(idEspe);
+	$("#idEspecialidad").val(idEspe);
 
-		//Nombre de la especialidad
-		var nomEspe = $("#cboEspecialidades option:selected").text();
-		//Asignamos a la caja de texto el nombre de la especialdad
-		$("#txtEspecialidades").val(nomEspe);
-		$("#msj_error").hide();
+	//Nombre de la especialidad
+	var nomEspe = $("#cboEspecialidades option:selected").text();
+	//Asignamos a la caja de texto el nombre de la especialdad
+	$("#txtEspecialidades").val(nomEspe);
+	$("#msj_error").hide();
 
-	});
+	}); */
 
-	//Obtener grupos
+	///************************** Obtener grupos *********************************
 	$("#cboGrupos").change(function() {
 		//Id Grupo
 		idGrupo = $("#cboGrupos option:selected").val();
@@ -235,45 +234,39 @@ $(document).ready(function() {
 
 	});
 
-	$('#grupos').click(function(e) {
+	$('#cboEspecialidades').click(function(e) {
 
 		function obtenerGrupos() {
-			idEspe = $("#idEspecialidad").val();
-			$.post($siteRoot + "actas/obtenerGrupos", {
+			idEspe = $("#cboEspecialidades").val();
+			$.post(siteRoot + "actas/obtenerGrupos", {
 				idEsp : idEspe
 			}, resultado, "json");
+			
 			function resultado(data) {
 				//Removemos las opciones de cboGrupos
 				$("#cboGrupos option").each(function(index, option) {
 					$(option).remove();
 				});
-
-				//if(data!=null){
-				//  $("#cboGrupos").attr('disabled', false);
-				for (key in data) {
-
-					$('#ActaAddForm #cboGrupos').append('<option value="' + key + '">' + data[key] + '</option>');
-				}
+				
+				$.each(data, function(i, item) {
+					$('#ActaAddForm #cboGrupos').append('<option value="' + i + '">' + item + '</option>');
+				});
 			}
 
 		}
 
 		//llamado de la funci�n
 		obtenerGrupos();
-
-		$('#modal_grupos').modal({
-			close : true
-		});
-		return false;
 	});
 
 	//Lupa instructores
 	$('#instructores').click(function(e) {
-		idEspe = $("#idEspecialidad").val();
+
 		function obtenerInstructores() {
 			$.post(siteRoot + "actas/obtenerInstructores", {
 				idEsp : idEspe
 			}, resultado, "json");
+			
 			function resultado(data) {
 				//Removemos las opciones de cboInstructores
 				$("#cboInstructores option").each(function(index, option) {
@@ -616,7 +609,7 @@ $(document).ready(function() {
 		//var id_Apre = $(this).attr('name');
 		var idAprendiz = $(this).attr('name');
 		//$("#txtIdAprendiz").val(idAprendiz);
-		
+
 		var numero = $(this).attr('class');
 
 		//id del aprendiz
@@ -666,7 +659,6 @@ $(document).ready(function() {
 
 	});
 
-
-//********************************************* DATETIMEPICKER INASISTENCIAS
-$("#divFecIna").datetimepicker();
+	//********************************************* DATETIMEPICKER INASISTENCIAS
+	$("#divFecIna").datetimepicker();
 });

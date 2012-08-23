@@ -5541,3 +5541,31 @@
 2012-07-19 23:43:57 Error: [MissingControllerException] Controller class CssController could not be found.
 #0 D:\xampp\htdocs\ProyectoSeguimientos\app\webroot\index.php(96): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2012-07-20 00:37:25 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'grupo_id' cannot be null
+#0 D:\xampp\htdocs\ProyectoSeguimientos\lib\Cake\Model\Datasource\DboSource.php(436): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\ProyectoSeguimientos\lib\Cake\Model\Datasource\DboSource.php(403): DboSource->_execute('INSERT INTO `ac...', Array)
+#2 D:\xampp\htdocs\ProyectoSeguimientos\lib\Cake\Model\Datasource\DboSource.php(967): DboSource->execute('INSERT INTO `ac...')
+#3 D:\xampp\htdocs\ProyectoSeguimientos\lib\Cake\Model\Model.php(1646): DboSource->create(Object(Acta), Array, Array)
+#4 D:\xampp\htdocs\ProyectoSeguimientos\lib\Cake\Model\Model.php(2071): Model->save(Array, Array)
+#5 D:\xampp\htdocs\ProyectoSeguimientos\lib\Cake\Model\Model.php(1908): Model->saveAssociated(Array, Array)
+#6 D:\xampp\htdocs\ProyectoSeguimientos\app\Controller\ActasController.php(116): Model->saveAll(Array)
+#7 [internal function]: ActasController->add()
+#8 D:\xampp\htdocs\ProyectoSeguimientos\lib\Cake\Controller\Controller.php(473): ReflectionMethod->invokeArgs(Object(ActasController), Array)
+#9 D:\xampp\htdocs\ProyectoSeguimientos\lib\Cake\Routing\Dispatcher.php(104): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\ProyectoSeguimientos\lib\Cake\Routing\Dispatcher.php(86): Dispatcher->_invoke(Object(ActasController), Object(CakeRequest), Object(CakeResponse))
+#11 D:\xampp\htdocs\ProyectoSeguimientos\app\webroot\index.php(96): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2012-07-20 00:38:30 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'grupo_id' cannot be null
+#0 D:\xampp\htdocs\ProyectoSeguimientos\lib\Cake\Model\Datasource\DboSource.php(436): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\ProyectoSeguimientos\lib\Cake\Model\Datasource\DboSource.php(403): DboSource->_execute('INSERT INTO `ac...', Array)
+#2 D:\xampp\htdocs\ProyectoSeguimientos\lib\Cake\Model\Datasource\DboSource.php(967): DboSource->execute('INSERT INTO `ac...')
+#3 D:\xampp\htdocs\ProyectoSeguimientos\lib\Cake\Model\Model.php(1646): DboSource->create(Object(Acta), Array, Array)
+#4 D:\xampp\htdocs\ProyectoSeguimientos\lib\Cake\Model\Model.php(2071): Model->save(Array, Array)
+#5 D:\xampp\htdocs\ProyectoSeguimientos\lib\Cake\Model\Model.php(1908): Model->saveAssociated(Array, Array)
+#6 D:\xampp\htdocs\ProyectoSeguimientos\app\Controller\ActasController.php(116): Model->saveAll(Array)
+#7 [internal function]: ActasController->add()
+#8 D:\xampp\htdocs\ProyectoSeguimientos\lib\Cake\Controller\Controller.php(473): ReflectionMethod->invokeArgs(Object(ActasController), Array)
+#9 D:\xampp\htdocs\ProyectoSeguimientos\lib\Cake\Routing\Dispatcher.php(104): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\ProyectoSeguimientos\lib\Cake\Routing\Dispatcher.php(86): Dispatcher->_invoke(Object(ActasController), Object(CakeRequest), Object(CakeResponse))
+#11 D:\xampp\htdocs\ProyectoSeguimientos\app\webroot\index.php(96): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}

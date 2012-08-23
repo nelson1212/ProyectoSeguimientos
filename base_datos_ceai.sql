@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 06-03-2012 a las 11:14:34
+-- Tiempo de generación: 08-08-2012 a las 12:46:02
 -- Versión del servidor: 5.5.16
 -- Versión de PHP: 5.3.8
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `actainstructores` (
   PRIMARY KEY (`id`),
   KEY `fk_actainstructores_actas1` (`acta_id`),
   KEY `fk_actainstructores_instructores1` (`instructore_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=46 ;
 
 --
 -- Volcado de datos para la tabla `actainstructores`
@@ -49,7 +49,17 @@ INSERT INTO `actainstructores` (`id`, `acta_id`, `instructore_id`, `created`, `u
 (32, 43, 3, '2012-02-28 21:34:17', '2012-02-28 21:34:17'),
 (33, 43, 2, '2012-02-28 21:34:17', '2012-02-28 21:34:17'),
 (34, 44, 3, '2012-02-28 21:34:36', '2012-02-28 21:34:36'),
-(35, 44, 2, '2012-02-28 21:34:36', '2012-02-28 21:34:36');
+(35, 44, 2, '2012-02-28 21:34:36', '2012-02-28 21:34:36'),
+(36, 45, 2, '2012-07-20 00:43:14', '2012-07-20 00:43:14'),
+(37, 46, 3, '2012-07-20 00:43:44', '2012-07-20 00:43:44'),
+(38, 47, 3, '2012-07-20 00:44:27', '2012-07-20 00:44:27'),
+(39, 48, 1, '2012-07-20 00:51:54', '2012-07-20 00:51:54'),
+(40, 49, 3, '2012-07-20 00:52:17', '2012-07-20 00:52:17'),
+(41, 50, 1, '2012-07-20 00:56:36', '2012-07-20 00:56:36'),
+(42, 51, 3, '2012-07-20 00:57:21', '2012-07-20 00:57:21'),
+(43, 52, 3, '2012-07-20 00:58:51', '2012-07-20 00:58:51'),
+(44, 53, 1, '2012-07-20 01:00:14', '2012-07-20 01:00:14'),
+(45, 54, 2, '2012-07-20 01:13:51', '2012-07-20 01:13:51');
 
 -- --------------------------------------------------------
 
@@ -72,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `actas` (
   KEY `fk_actas_etapas2` (`etapa_id`),
   KEY `fk_acta_grupos` (`grupo_id`),
   KEY `fk_actas_tipos1` (`tipo_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=55 ;
 
 --
 -- Volcado de datos para la tabla `actas`
@@ -85,7 +95,17 @@ INSERT INTO `actas` (`id`, `fecha`, `tipo_id`, `grupo_id`, `etapa_id`, `trimestr
 (41, '02/24/2012 00:00 ', 1, 1, 1, 1, NULL, '2012-02-28 21:32:08', '2012-02-28 21:32:08'),
 (42, '02/23/2012 00:00 ', 1, 2, 1, 1, NULL, '2012-02-28 21:33:29', '2012-02-28 21:33:29'),
 (43, '02/17/2012 00:00 ', 1, 1, 1, 2, NULL, '2012-02-28 21:34:17', '2012-02-28 21:34:17'),
-(44, '02/17/2012 00:00 ', 1, 1, 1, 2, NULL, '2012-02-28 21:34:36', '2012-02-28 21:34:36');
+(44, '02/17/2012 00:00 ', 1, 1, 1, 2, NULL, '2012-02-28 21:34:36', '2012-02-28 21:34:36'),
+(45, '04-07-2012 17:43:05', 1, 1, 2, 1, NULL, '2012-07-20 00:43:14', '2012-07-20 00:43:14'),
+(46, '25-07-2012 17:43:35', 2, 1, 2, 1, NULL, '2012-07-20 00:43:44', '2012-07-20 00:43:44'),
+(47, '02-07-2012 17:44:17', 1, 1, 2, 1, NULL, '2012-07-20 00:44:27', '2012-07-20 00:44:27'),
+(48, '02-07-2012 17:51:44', 1, 1, 2, 1, NULL, '2012-07-20 00:51:54', '2012-07-20 00:51:54'),
+(49, '02-07-2012 17:52:08', 1, 3, 2, 1, NULL, '2012-07-20 00:52:17', '2012-07-20 00:52:17'),
+(50, '24-07-2012 17:56:26', 1, 1, 2, 1, NULL, '2012-07-20 00:56:36', '2012-07-20 00:56:36'),
+(51, '24-07-2012 17:57:08', 2, 4, 2, 1, NULL, '2012-07-20 00:57:21', '2012-07-20 00:57:21'),
+(52, '17-07-2012 17:58:41', 1, 4, 2, 2, NULL, '2012-07-20 00:58:51', '2012-07-20 00:58:51'),
+(53, '24-07-2012 18:00:04', 1, 4, 2, 3, NULL, '2012-07-20 01:00:14', '2012-07-20 01:00:14'),
+(54, '31-07-2012 18:13:42', 1, 4, 2, 1, NULL, '2012-07-20 01:13:51', '2012-07-20 01:13:51');
 
 -- --------------------------------------------------------
 
@@ -102,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `actausuarios` (
   PRIMARY KEY (`id`),
   KEY `fk_actafuncionarios_actas1` (`acta_id`),
   KEY `fk_actafuncionarios_usuarios1` (`usuario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=42 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=52 ;
 
 --
 -- Volcado de datos para la tabla `actausuarios`
@@ -113,7 +133,17 @@ INSERT INTO `actausuarios` (`id`, `acta_id`, `usuario_id`, `created`, `updated`)
 (38, 36, 2, '2012-02-10 15:53:44', '2012-02-10 15:53:44'),
 (39, 37, 1, '2012-02-10 15:54:36', '2012-02-10 15:54:36'),
 (40, 37, 2, '2012-02-10 15:54:36', '2012-02-10 15:54:36'),
-(41, 44, 2, '2012-02-28 21:34:36', '2012-02-28 21:34:36');
+(41, 44, 2, '2012-02-28 21:34:36', '2012-02-28 21:34:36'),
+(42, 45, 1, '2012-07-20 00:43:14', '2012-07-20 00:43:14'),
+(43, 46, 2, '2012-07-20 00:43:44', '2012-07-20 00:43:44'),
+(44, 47, 2, '2012-07-20 00:44:27', '2012-07-20 00:44:27'),
+(45, 48, 1, '2012-07-20 00:51:54', '2012-07-20 00:51:54'),
+(46, 49, 2, '2012-07-20 00:52:17', '2012-07-20 00:52:17'),
+(47, 50, 1, '2012-07-20 00:56:36', '2012-07-20 00:56:36'),
+(48, 51, 2, '2012-07-20 00:57:21', '2012-07-20 00:57:21'),
+(49, 52, 2, '2012-07-20 00:58:51', '2012-07-20 00:58:51'),
+(50, 53, 1, '2012-07-20 01:00:14', '2012-07-20 01:00:14'),
+(51, 54, 2, '2012-07-20 01:13:51', '2012-07-20 01:13:51');
 
 -- --------------------------------------------------------
 
@@ -367,7 +397,21 @@ CREATE TABLE IF NOT EXISTS `calificaciones` (
   KEY `fk_calificaciones_actas2` (`acta_id`),
   KEY `fk_calificaciones_aprendices2` (`aprendice_id`),
   KEY `fk_calificaciones_instructores2` (`instructore_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Volcado de datos para la tabla `calificaciones`
+--
+
+INSERT INTO `calificaciones` (`id`, `aprobado`, `cal_num`, `acta_id`, `aprendice_id`, `resultadoaprendizaje_id`, `total_horas_excusadas`, `total_horas_noexcusadas`, `instructore_id`, `created`, `updated`) VALUES
+(1, 0, '1', 36, 1, 1, NULL, NULL, 2, '2012-06-27 01:03:32', '2012-07-19 23:47:12'),
+(2, 0, '1', 36, 2, 1, NULL, NULL, 2, '2012-06-27 01:43:17', '2012-07-19 23:47:14'),
+(3, 1, '4', 36, 3, 1, NULL, NULL, 2, '2012-06-27 01:43:19', '2012-07-05 04:14:33'),
+(4, 0, '3', 36, 4, 1, NULL, NULL, 2, '2012-06-27 01:43:22', '2012-07-19 23:47:17'),
+(5, 0, '2', 36, 5, 1, NULL, NULL, 2, '2012-06-27 01:43:25', '2012-07-19 23:47:19'),
+(6, 1, '5', 36, 7, 1, NULL, NULL, 2, '2012-06-27 01:43:28', '2012-06-27 01:43:38'),
+(7, 0, '2', 36, 8, 1, NULL, NULL, 2, '2012-06-27 01:43:30', '2012-06-27 01:43:33'),
+(8, 0, '2', 36, 1, 2, NULL, NULL, 3, '2012-06-27 01:52:52', '2012-06-27 01:52:52');
 
 -- --------------------------------------------------------
 
@@ -480,7 +524,15 @@ CREATE TABLE IF NOT EXISTS `conceptualaprendices` (
   PRIMARY KEY (`id`),
   KEY `fk_conceptualaprendices_actas1` (`acta_id`),
   KEY `fk_conceptualaprendices_aprendices1` (`aprendice_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `conceptualaprendices`
+--
+
+INSERT INTO `conceptualaprendices` (`id`, `aprendice_id`, `acta_id`, `concepto`, `created`, `updated`) VALUES
+(1, 1, 36, 'Hola', '2012-06-27 02:45:38', '2012-06-27 02:45:38'),
+(2, 2, 36, 'buen estudiante, gran capacidad para gestionar conocimientos, se destaca del aprendiz lo siguiente:Disciplinado,Líder,Responsable,Comprometido,Puntual', '2012-06-27 02:47:28', '2012-06-27 03:11:56');
 
 -- --------------------------------------------------------
 
@@ -627,7 +679,18 @@ CREATE TABLE IF NOT EXISTS `frases` (
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Volcado de datos para la tabla `frases`
+--
+
+INSERT INTO `frases` (`id`, `frase`, `created`, `updated`) VALUES
+(1, 'Puntual', '2012-06-27 02:46:05', '2012-06-27 02:46:05'),
+(2, 'Comprometido', '2012-06-27 02:46:13', '2012-06-27 02:46:13'),
+(3, 'Responsable', '2012-06-27 02:46:18', '2012-06-27 02:46:18'),
+(4, 'Lider', '2012-06-27 02:46:23', '2012-06-27 02:46:23'),
+(5, 'Disciplinado', '2012-06-27 02:46:31', '2012-06-27 02:46:31');
 
 -- --------------------------------------------------------
 
@@ -865,7 +928,18 @@ CREATE TABLE IF NOT EXISTS `proyectos` (
   `updated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`,`grupo_id`),
   KEY `fk_proyectos_grupos1` (`grupo_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Volcado de datos para la tabla `proyectos`
+--
+
+INSERT INTO `proyectos` (`id`, `nombre_proyecto`, `descripcion_proyecto`, `ruta_proyecto_url`, `grupo_id`, `created`, `updated`) VALUES
+(1, 'Sistema de información X1', 'blblablablabla', '15151515', 1, '2012-06-05 00:00:00', '2012-06-15 00:00:00'),
+(2, 'Sistema de información X2', 'dadasdasdasda', 'dasdasdasdas', 2, '2012-06-03 00:00:00', '2012-06-03 00:00:00'),
+(3, 'Sistema de información X3', 'sdfsfsdfsdfsdfsdfsdfsdf', 'sdfsdfsfsdfsdfsdfsd', 3, '2012-06-03 00:00:00', '2012-06-03 00:00:00'),
+(4, 'Sistema de información X4', 'dasdasdasdasdasd', 'asdasdasdasdasd', 3, '2012-06-03 00:00:00', '2012-06-03 00:00:00'),
+(5, 'Sistema de información X5', 'dasdasdasdasdasdasd', 'sdfsdfsfsdfsdfsdfsd', 4, '2012-06-03 00:00:00', '2012-06-03 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -920,7 +994,17 @@ CREATE TABLE IF NOT EXISTS `resultadoproyectos` (
   KEY `fk_resultadoproyectos_proyectos2` (`proyecto_id`),
   KEY `fk_resultadoproyectos_resultadoaprendizajes2` (`resultadoaprendizaje_id`),
   KEY `fk_resultadoproyectos_instructores2` (`instructore_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Volcado de datos para la tabla `resultadoproyectos`
+--
+
+INSERT INTO `resultadoproyectos` (`id`, `proyecto_id`, `instructore_id`, `resultadoaprendizaje_id`, `actividad_matriz`, `trimestre_matriz`, `codigo_guia`, `fecha_inicio_matriz`, `fecha_final_matriz`, `created`, `updated`) VALUES
+(2, 1, 1, 1, 'dfsdf', 1, 'dfdfdf', '2012-06-03', '2012-06-01', '2012-06-03 00:00:00', '2012-06-03 00:00:00'),
+(3, 1, 1, 2, 'dasdasdasdsa', 2, '5545454', '2012-06-04', '2012-06-04', '2012-06-13 00:00:00', '2012-06-27 00:00:00'),
+(4, 1, 2, 3, 'dfsdf', 3, '1212252', '2012-06-05', '2012-06-04', '2012-06-04 00:00:00', '2012-06-03 00:00:00'),
+(5, 1, 2, 4, 'dasdasdasdsa', 4, '5545454', '2012-06-04', '2012-06-19', '2012-06-11 00:00:00', '2012-06-27 00:00:00');
 
 -- --------------------------------------------------------
 

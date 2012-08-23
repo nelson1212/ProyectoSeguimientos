@@ -7,8 +7,8 @@
 		<tr>
 			<td width="25%"><label>Especifica la especialidad</label></td>
 			<td width="56%">
-				<?php echo $this->Form->input('Especialdiad.especialidad_id', array("label"=>false,"type"=>"select", 'empty'=>"Seleccione...", "id"=>"cboEspecialidades", 'options'=>$especialidades)); ?>
-				<?php echo $this->Form->input('Acta.especialidad_id', array("id"=>"idEspecialidad","type"=>"hidden")); ?>
+				<?php echo $this->Form->input('Acta.especialidad_id', array("label"=>false,"type"=>"select", 'empty'=>"Seleccione...", "id"=>"cboEspecialidades", 'options'=>$especialidades)); ?>
+				<?php //echo $this->Form->input('Acta.especialidad_id', array("id"=>"idEspecialidad","type"=>"hidden")); ?>
 				
 			</td>
 			<td><?php //echo $this->Html->image('lupa.png', array('id'=>"especialidades", 'alt' => 'Buscar especialidad'))?></td>
@@ -16,8 +16,8 @@
 		<tr>
 			<td width="230px"><label>Especifica el grupo</label></td>
 			<td>
-				<?php echo $this->Form->input('Otro.grupo_id', array("label"=>"", "id"=>"txtGrupo","type"=>"select"/*'readonly' => 'readonly'*/)); ?>
-				<?php echo $this->Form->input('Acta.grupo_id', array( "id"=>"txtGrupo1","type"=>"hidden")); ?>
+				<?php echo $this->Form->input('Acta.grupo_id', array("label"=>"", "id"=>"cboGrupos","type"=>"select"/*'readonly' => 'readonly'*/)); ?>
+				<?php // echo $this->Form->input('Acta.grupo_id', array( "id"=>"txtGrupo1","type"=>"hidden")); ?>
 				
 			</td>
 			<td><?php //echo $this->Html->image('lupa.png', array('id'=>"grupos", 'alt' => 'Buscar grupo'))?></td>

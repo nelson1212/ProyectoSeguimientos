@@ -18,21 +18,14 @@
 				<th  class="actions" style="text-align: center;">Acciones</th>
 			</tr>
 			<?php
-			//debug($actas); return;
 			$i=0;	
 			foreach($actas as $acta) {
 				$id=$acta["Acta"]["id"];
-				$tipo = "";
-				if ($acta["Acta"]["tipo_id"]==1){
-					$tipo = "Ordinaria";
-				} else if($acta["Acta"]["tipo_id"]==1){
-					$tipo = "ExtraOrdinaria";
-				}
 			?>
 				
 				<tr>
 					<td><?php echo $id; ?></td>
-					<td><?php echo $tipo; ?></td>
+					<td><?php echo $acta["Tipo"]["nombre"]; ?></td>
 					<td><?php echo $acta["Acta"]["fecha"]; ?></td>
 					<td><?php echo $acta["Grupo"]["nombre"]; ?></td>
 					<td><?php echo $acta["Etapa"]["descripcion"]; ?></td>
